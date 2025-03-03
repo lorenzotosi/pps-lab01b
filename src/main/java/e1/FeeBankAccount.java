@@ -1,24 +1,16 @@
 package e1;
 
-public class FeeBankAccount implements BankAccount {
+public class FeeBankAccount extends BankAccountDecorator {
 
     private final BankAccount base;
     private final FeeStrategy feeStrategy;
 
     public FeeBankAccount(BankAccount base, FeeStrategy feeStrategy) {
+        super(base);
         this.base = base;
         this.feeStrategy = feeStrategy;
     }
 
-    @Override
-    public int getBalance() {
-        return base.getBalance();
-    }
-
-    @Override
-    public void deposit(int amount) {
-        base.deposit(amount);
-    }
 
     @Override
     public void withdraw(int amount) {
