@@ -1,6 +1,6 @@
 package e1;
 
-public class BankAccountDecorator implements BankAccount {
+public abstract class BankAccountDecorator implements BankAccount {
 
     private final BankAccount base;
 
@@ -19,7 +19,5 @@ public class BankAccountDecorator implements BankAccount {
     }
 
     @Override
-    public void withdraw(int amount) {
-        base.withdraw(amount);
-    }
+    public abstract void withdraw(int amount);
 }

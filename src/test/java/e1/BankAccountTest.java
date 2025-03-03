@@ -35,8 +35,12 @@ public class BankAccountTest {
 
     @Test
     public void testCanDeposit() {
-        this.account.deposit(1000);
-        assertEquals(1000, this.account.getBalance());
+        //this.account.deposit(1000);
+        //assertEquals(1000, this.account.getBalance());
+        this.baList.forEach(x -> x.deposit(1000));
+        assertAll(() -> assertEquals(1000, account.getBalance()),
+                () -> assertEquals(1000, goldBA.getBalance()),
+                () -> assertEquals(1000, bronzeBA.getBalance()));
     }
 
     @Test
@@ -51,6 +55,20 @@ public class BankAccountTest {
         this.goldBA.deposit(1000);
         this.goldBA.withdraw(200);
         assertEquals(800, this.goldBA.getBalance());
+    }
+
+    @Test
+    public void testCanWithdrawBronzeWithFee() {
+        this.bronzeBA.deposit(1000);
+        this.bronzeBA.withdraw(200);
+        assertEquals(799, this.bronzeBA.getBalance());
+    }
+
+    @Test
+    public void testCanWithdrawBronzeNoFee() {
+        this.bronzeBA.deposit(1000);
+        this.bronzeBA.withdraw(50);
+        assertEquals(950, this.bronzeBA.getBalance());
     }
 
     @Test
