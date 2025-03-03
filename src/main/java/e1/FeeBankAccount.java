@@ -4,6 +4,7 @@ public class FeeBankAccount implements BankAccount {
 
     private final BankAccount base;
     private final int fee;
+    private FeeStrategy feeStrategy;
 
     public FeeBankAccount(BankAccount base) {
         this.base = base;
@@ -13,6 +14,12 @@ public class FeeBankAccount implements BankAccount {
     public FeeBankAccount(BankAccount base, int fee) {
         this.base = base;
         this.fee = fee;
+    }
+
+    public FeeBankAccount(BankAccount base, FeeStrategy feeStrategy) {
+        this.base = base;
+        this.fee = 1;
+        this.feeStrategy = feeStrategy;
     }
 
     @Override
@@ -27,6 +34,6 @@ public class FeeBankAccount implements BankAccount {
 
     @Override
     public void withdraw(int amount) {
-        base.withdraw(amount + fee);
+        base.withdraw(amount + this.feeStrategy.calculateFee(amount));
     }
 }

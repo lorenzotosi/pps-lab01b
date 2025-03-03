@@ -10,12 +10,14 @@ public class BankAccountTest {
 
     private BankAccount account;
     private final BankAccountFactory bankAccountFactory = new BankAccountFactoryImpl();
+    private BankAccount goldBA;
+    private BankAccount bronzeBA;
 
     @BeforeEach
     void init(){
         this.account = bankAccountFactory.createSilverBankAccount();
-
-    // new WithdrawBankAccount(new FeeBankAccount(new CoreBankAccount()));
+        this.goldBA = bankAccountFactory.createGoldBankAccount();
+        this.bronzeBA = bankAccountFactory.createBronzeBankAccount();
     }
 
     @Test
