@@ -3,8 +3,12 @@ package e1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
 
@@ -12,17 +16,21 @@ public class BankAccountTest {
     private final BankAccountFactory bankAccountFactory = new BankAccountFactoryImpl();
     private BankAccount goldBA;
     private BankAccount bronzeBA;
+    private List<BankAccount> baList;
 
     @BeforeEach
     void init(){
         this.account = bankAccountFactory.createSilverBankAccount();
         this.goldBA = bankAccountFactory.createGoldBankAccount();
         this.bronzeBA = bankAccountFactory.createBronzeBankAccount();
+        this.baList = List.of(account, goldBA, bronzeBA);
     }
 
     @Test
     public void testInitiallyEmpty() {
-        assertEquals(0, this.account.getBalance());
+        //assertEquals(0, this.account.getBalance());
+        assertEquals(0, baList.stream().mapToInt(BankAccount::getBalance).sum());
+
     }
 
     @Test
@@ -36,6 +44,13 @@ public class BankAccountTest {
         this.account.deposit(1000);
         this.account.withdraw(200);
         assertEquals(799, this.account.getBalance());
+    }
+
+    @Test
+    public void testCanWithdrawGold() {
+        this.goldBA.deposit(1000);
+        this.goldBA.withdraw(200);
+        assertEquals(800, this.goldBA.getBalance());
     }
 
     @Test

@@ -1,14 +1,23 @@
 package e1;
 
-public class WithdrawBankAccount extends FeeBankAccount {
+public class WithdrawBankAccount implements BankAccount {
 
     private final BankAccount base;
     private final WithdrawStrategy withdrawStrategy;
 
     public WithdrawBankAccount(BankAccount base, WithdrawStrategy withdrawStrategy) {
-        super(base);
         this.base = base;
         this.withdrawStrategy = withdrawStrategy;
+    }
+
+    @Override
+    public int getBalance() {
+        return base.getBalance();
+    }
+
+    @Override
+    public void deposit(int amount) {
+        base.deposit(amount);
     }
 
     @Override
