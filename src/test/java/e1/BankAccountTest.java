@@ -9,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class BankAccountTest {
 
     private BankAccount account;
+    private final BankAccountFactory bankAccountFactory = new BankAccountFactoryImpl();
 
     @BeforeEach
     void init(){
-        this.account = new BankAccount();
+        this.account = bankAccountFactory.createSilverBankAccount();
+
+    // new WithdrawBankAccount(new FeeBankAccount(new CoreBankAccount()));
     }
 
     @Test
