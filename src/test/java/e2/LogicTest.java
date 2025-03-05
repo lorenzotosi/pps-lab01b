@@ -6,14 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LogicTest {
 
     private Logics logic;
-    public static final int BOARD_SIZE = 5;
     private Piece pawn;
     private Piece knight;
+    public static final int BOARD_SIZE = 5;
+    public static final int OUT_OF_BOARD_SIZE = BOARD_SIZE+1;
+    public static final int INITIAL_PAWN_POSITION = 0;
+    public static final int INITIAL_KNIGHT_ROW_POSITION = 2;
+    public static final int INITIAL_KNIGHT_COL_POSITION = 1;
 
     @BeforeEach
     void setUp() {
-        this.pawn = new PieceImpl(0,0);
-        this.knight = new PieceImpl(2,1);
+        this.pawn = new PieceImpl(INITIAL_PAWN_POSITION, INITIAL_PAWN_POSITION);
+        this.knight = new PieceImpl(INITIAL_KNIGHT_ROW_POSITION, INITIAL_KNIGHT_COL_POSITION);
         this.logic = new LogicsImpl(pawn, knight, BOARD_SIZE);
     }
 
@@ -29,12 +33,17 @@ public class LogicTest {
 
     @Test
     public void testWrongKnightPosition() {
-        assertFalse(logic.hasKnight(6,6));
+        assertFalse(logic.hasKnight(OUT_OF_BOARD_SIZE, OUT_OF_BOARD_SIZE));
     }
 
     @Test
     public void testWrongPawnPosition() {
-        assertFalse(logic.hasPawn(6,6));
+        assertFalse(logic.hasPawn(OUT_OF_BOARD_SIZE, OUT_OF_BOARD_SIZE));
+    }
+
+    @Test
+    public void testPawnPosition() {
+        assertTrue(logic.hasPawn(INITIAL_PAWN_POSITION, INITIAL_PAWN_POSITION));
     }
 
     @Test
@@ -45,6 +54,13 @@ public class LogicTest {
     @Test
     public void testNoHit() {
         assertFalse(logic.hit(1,1));
+    }
+
+    @Test
+    public void testMoveAndHit() {
+        assertAll(() -> assertFalse(logic.hit(knight.getX()-1, knight.getY()+2)),
+                () -> assertFalse(logic.hit(knight.getX()+1, knight.getY()-2)),
+                () -> assertTrue(logic.hit(pawn.getX(), pawn.getY())));
     }
 
 }
