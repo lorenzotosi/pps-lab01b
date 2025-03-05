@@ -7,14 +7,14 @@ public class LogicTest {
 
     private Logics logic;
     public static final int BOARD_SIZE = 5;
-    private Pair<Integer,Integer> pawnPosition;
-    private Pair<Integer,Integer> knightPosition;
+    private Piece pawn;
+    private Piece knight;
 
     @BeforeEach
     void setUp() {
-        this.pawnPosition = new Pair<>(0,0);
-        this.knightPosition = new Pair<>(2,1);
-        this.logic = new LogicsImpl(pawnPosition, knightPosition, BOARD_SIZE);
+        this.pawn = new PieceImpl(0,0);
+        this.knight = new PieceImpl(2,1);
+        this.logic = new LogicsImpl(pawn, knight, BOARD_SIZE);
     }
 
     @Test
