@@ -4,11 +4,11 @@ public class PieceImpl implements Piece{
 
     private Pair<Integer, Integer> position;
 
-    public PieceImpl(int row, int column){
+    public PieceImpl(final int row, final int column){
         this.position = new Pair<>(row, column);
     }
 
-    public PieceImpl(Pair<Integer, Integer> position){
+    public PieceImpl(final Pair<Integer, Integer> position){
         this.position = position;
     }
 
@@ -18,7 +18,7 @@ public class PieceImpl implements Piece{
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
+    public void setPosition(final Pair<Integer, Integer> position) {
         this.position = position;
     }
 
@@ -31,6 +31,4 @@ public class PieceImpl implements Piece{
     public Integer getY() {
         return position.getY();
     }
-
-
 }
