@@ -63,4 +63,14 @@ public class LogicTest {
                 () -> assertTrue(logic.hit(pawn.getX(), pawn.getY())));
     }
 
+    @Test
+    public void testNoMove() {
+        assertFalse(logic.hit(knight.getX()-1, knight.getY()+1));
+    }
+
+    @Test
+    public void testThrowOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.hit(knight.getX()+10, knight.getY()+10));
+    }
+
 }
