@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
 
+    public static final int STANDARD_DEPOSIT_AMOUNT = 1000;
+    public static final int STANDARD_WITHDRAW_AMOUNT = 200;
     private BankAccount account;
     private final BankAccountFactory bankAccountFactory = new BankAccountFactoryImpl();
     private BankAccount goldBA;
@@ -37,43 +39,43 @@ public class BankAccountTest {
     public void testCanDeposit() {
         //this.account.deposit(1000);
         //assertEquals(1000, this.account.getBalance());
-        this.baList.forEach(x -> x.deposit(1000));
-        assertAll(() -> assertEquals(1000, account.getBalance()),
-                () -> assertEquals(1000, goldBA.getBalance()),
-                () -> assertEquals(1000, bronzeBA.getBalance()));
+        this.baList.forEach(x -> x.deposit(STANDARD_DEPOSIT_AMOUNT));
+        assertAll(() -> assertEquals(STANDARD_DEPOSIT_AMOUNT, account.getBalance()),
+                () -> assertEquals(STANDARD_DEPOSIT_AMOUNT, goldBA.getBalance()),
+                () -> assertEquals(STANDARD_DEPOSIT_AMOUNT, bronzeBA.getBalance()));
     }
 
     @Test
     public void testCanWithdraw() {
-        this.account.deposit(1000);
-        this.account.withdraw(200);
+        this.account.deposit(STANDARD_DEPOSIT_AMOUNT);
+        this.account.withdraw(STANDARD_WITHDRAW_AMOUNT);
         assertEquals(799, this.account.getBalance());
     }
 
     @Test
     public void testCanWithdrawGold() {
-        this.goldBA.deposit(1000);
-        this.goldBA.withdraw(200);
+        this.goldBA.deposit(STANDARD_DEPOSIT_AMOUNT);
+        this.goldBA.withdraw(STANDARD_WITHDRAW_AMOUNT);
         assertEquals(800, this.goldBA.getBalance());
     }
 
     @Test
     public void testCanWithdrawBronzeWithFee() {
-        this.bronzeBA.deposit(1000);
-        this.bronzeBA.withdraw(200);
+        this.bronzeBA.deposit(STANDARD_DEPOSIT_AMOUNT);
+        this.bronzeBA.withdraw(STANDARD_WITHDRAW_AMOUNT);
         assertEquals(799, this.bronzeBA.getBalance());
     }
 
     @Test
     public void testCanWithdrawBronzeNoFee() {
-        this.bronzeBA.deposit(1000);
+        this.bronzeBA.deposit(STANDARD_DEPOSIT_AMOUNT);
         this.bronzeBA.withdraw(50);
         assertEquals(950, this.bronzeBA.getBalance());
     }
 
     @Test
     public void testCannotWithdrawMoreThanAvailable(){
-        this.account.deposit(1000);
+        this.account.deposit(STANDARD_DEPOSIT_AMOUNT);
         assertThrows(IllegalStateException.class, () -> this.account.withdraw(1200));
     }
 
